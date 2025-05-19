@@ -591,9 +591,8 @@ def crop_image(image, bbox, margin=0):
 def set_hook(diffusion_model, target_forward_orig):
     # comfy.ldm.flux.model.Flux.old_forward_orig_for_pulid = comfy.ldm.flux.model.Flux.forward_orig
     # comfy.ldm.flux.model.Flux.forward_orig = pulid_forward_orig
-    if hasattr(diffusion_model, 'forward_orig'):
-        diffusion_model.old_forward_orig_for_pulid = diffusion_model.forward_orig
-        diffusion_model.forward_orig = types.MethodType(target_forward_orig, diffusion_model)
+    diffusion_model.old_forward_orig_for_pulid = diffusion_model.forward_orig
+    diffusion_model.forward_orig = types.MethodType(target_forward_orig, diffusion_model)
 
 def clean_hook(diffusion_model):
     # if hasattr(comfy.ldm.flux.model.Flux, 'old_forward_orig_for_pulid'):
